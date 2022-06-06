@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Review 처리 SQL -->
+<mapper namespace="global.sesoc.Project_3jo.dao.ReviewMapper">
+
+<!-- 구매 후기 글 읽기 -->
+<select id="getReview" parameterType="int" resultType="ReviewVO">
+	select 
+		rv_num
+		, pd_id			
+		, po_id
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from 
+		board_review
+	where 
+		rv_num = #{rv_num}
+</select>
+
+<!-- 전체 구매 후기글 개수 (검색 필터링 후) -->
+<select id="getTotal" parameterType="SearchVO" resultType="int">
+	select 
+		count(*)
+	from 
+		board_review
+	<if test="_parameter != null">
+	<where>
+		<if test='type == "1"'>
+			rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			rv_title like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "3"'>
+			rv_content like '%' || #{searchText} || '%'
+		</if>
+	</where>
+	</if>
+</select>
+
+<!-- 현재 페이지 전체 목록 (검색 필터링 후) -->
+<!-- LPAD('*', LENGTH(user_id)-4, '*') -->
+<select id="listReview" parameterType="SearchVO" resultType="ReviewVO">
+	select 
+		rv_num
+		, pd_id
+		<!-- , user_id -->			
+		, (SUBSTR(po_id, 1, 3) || '***') po_id
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from 
+		board_review 
+	<!-- <if test="_parameter != null"> -->
+	<where>
+		<if test='type == "1"'>
+			rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			rv_title like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "3"'>
+			rv_content like '%' || #{searchText} || '%'
+		</if>
+	</where>
+	<!-- </if> -->
+	order by rv_num desc
+</select>
+
+<!-- 게시글 저장 -->
+<insert id="insertReview" parameterType="ReviewVO">
+	insert 
+	into 
+		board_review 
+		(
+			rv_num
+			<!-- , user_id -->			
+			, (SUBSTR(po_id, 1, 3) || '***') po_id
+			, rv_title	
+			, rv_content
+			<!-- , rv_date -->
+			, to_char(rv_date, 'YYYY-MM-DD') rv_date
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, rv_originalfile
+			, rv_savedfile
+			</if>
+		)
+	values 
+		(
+			board_review_seq.nextval
+			, #{po_id}
+			, #{rv_title}
+			, #{rv_content}
+			, #{rv_date}
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, #{rv_originalfile}
+			, #{rv_savedfile}
+			</if>
+		)
+</insert>
+
+<!-- 구매 후기글 삭제 -->
+<delete id="deleteReview" parameterType="ReviewVO">
+	delete
+	from
+		board_review
+	where
+		rv_num = #{rv_num}
+		and po_id = #{po_id}
+</delete>
+
+<!-- 구매 후기글 수정 -->
+<update id="updateReview" parameterType="ReviewVO">
+	update
+		board_review
+	set
+		rv_title = #{rv_title}
+		, rv_content = #{rv_content}
+		<if test="rv_originalfile != null and rv_savedfile != null">
+		, rv_originalfile = #{rv_originalfile}
+		, rv_savedfile = #{rv_savedfile}
+		</if>
+	where
+		rv_num = #{rv_num}
+		and po_id = #{po_id}
+</update>
+
+</mapper>

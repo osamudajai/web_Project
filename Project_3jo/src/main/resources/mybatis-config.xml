@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  
+<configuration>
+	<typeAliases>
+		<typeAlias type="global.sesoc.Project_3jo.vo.home_product" alias="home_product" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.MemberVO" alias="MemberVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.CartVO" alias="CartVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.Ord_MemberVO" alias="member" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.ProductInfo" alias="ProductInfo" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.ProductBig" alias="ProductBig" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.ProductBrand" alias="ProductBrand" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.Product_ml" alias="ProductMl" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.Product_cost" alias="ProductCt" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.NoticeVO" alias="NoticeVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.FaqVO" alias="FaqVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.QnaVO" alias="QnaVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.ReviewVO" alias="ReviewVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.SearchVO" alias="SearchVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.Ord_baseVO" alias="base" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.Ord_compleVO" alias="comple" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.paffemVO" alias="paffemVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.adminVO" alias="adminVO" />
+		<typeAlias type="global.sesoc.Project_3jo.vo.pointVO" alias="pointVO" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="home_productMapper.xml" />
+		<mapper resource="memberMapper.xml" />
+		<mapper resource="CartMapper.xml" />
+		<mapper resource="Ord_memberMapper.xml" />
+		<mapper resource="productMapper.xml" />
+		<mapper resource="mapper/noticeMapper.xml" />
+		<mapper resource="mapper/faqMapper.xml" />
+		<mapper resource="mapper/qnaMapper.xml" />
+		<mapper resource="paffem.xml"/>
+		<mapper resource="adminMapper.xml"/>
+		<mapper resource="adminfaqMapper.xml"/>
+		<mapper resource="adminqnaMapper.xml"/>
+	</mappers>
+	
+</configuration>

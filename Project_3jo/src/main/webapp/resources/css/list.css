@@ -1,0 +1,143 @@
+.serv_list{
+    padding-top:70px;
+    padding-bottom:70px;
+}
+
+.page_nm {
+   font-weight: bold;
+   color: white;
+   background-color: #212529;
+   width: 70px;
+   padding-right: 13px;
+   padding-left: 13px;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   border-radius: 38px;
+   text-align: center;
+}
+
+.a1{
+	color: black;
+}
+
+.serv_list .container{
+    max-width: 1300px;
+    margin:auto;
+}
+.serv_list .container .title h1{
+    text-align: center;
+}
+
+.serv_list .container .title ul{
+    padding-left: 0;
+    list-style: none; /* ul의 li를 점을 없애줍니다 */
+    text-align: center;
+}
+
+.man_img{
+   background-image:url(../../resources/img/man/man_desc.jpg);
+   background-size:1300px 300px;
+   width:100%;
+   height:300px;
+   display:flex;
+   justify-content:right;
+   align-items:center;
+   padding-right:200px;
+}
+.man_content{
+   display:flex;
+   flex-direction:column; 
+}
+
+.man_content h2{
+   color:white;
+}
+.man_p1{color:white;}
+
+.woman_img{
+   background-image:url(../../resources/img/woman/woman_desc.jpg);
+   background-size:100% 300px;
+   width:100%;
+   height:300px;
+   display:flex;
+   justify-content:right;
+   align-items:center;
+   padding-right:40px;
+}
+.woman_content{
+   display:flex;
+   flex-direction:column; 
+}
+
+.woman_content h2{
+   color:black;
+}
+
+.unisex_img{
+   background-image:url(../../resources/img/unisex/unisex_desc.jpg);
+   background-size:100% 300px;
+   background-repeat: no-repeat;
+   width:100%;
+   height:300px;
+   display:flex;
+   justify-content:right;
+   align-items:center;
+   padding-right:100px;
+}
+.br_img{
+   width:100%;
+}
+
+.brandCata li{
+   margin-top:20px;
+   display:inline-block;
+   padding:20px; 
+   font-size:30px;
+}
+.brandCata li a:hover{color:gray;}
+.sort ul{float:right; margin-top:-70px;}
+.sort li{
+   float:left;
+   padding:10px;
+}
+.serv_list .container .title ul li{
+   
+    display: inline; /* ul의 li를 가로로 정렬 해줍니다 */
+    margin-right: 30px;
+}
+
+.serv_list .container .title ul li a{
+    
+    text-decoration: none;
+    color: #444;
+}
+
+.serv_list .container .item_list{
+    display: flex;
+    flex-wrap : wrap; /* 상위 요소의 너비보다 하위 요소의 너비가 더 클 경우 줄바꿈 */
+}
+
+.serv_list .container .item_list .card{
+    border: 1px solid #eee; /* 테두리를 1px 실선의 #eee 색상으로 */
+    border-radius: 5px; /* 모서리를 5px 만큼 둥글게 */
+    height: 300px;
+    width: 250px;
+    margin: 30px;
+    margin-bottom: 10px;
+}
+
+.serv_list .container .item_list .card img{
+    height: 200px;
+    width: 250px
+} 
+.serv_list .container .item_list .card .text h2{
+    text-align: center;
+    font-size: 14px;
+    opacity: .8;
+}
+
+.serv_list .container .item_list .card .text p{
+    text-align: center;
+    font-size: 12px;
+    opacity: .8;
+}

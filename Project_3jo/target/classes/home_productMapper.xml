@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.Project_3jo.dao.home_productMapper">
+
+	<select id="select" resultType="home_product">
+ select 
+  b.big_name,
+  br.br_name, 
+  pi.pd_img1, 
+  pi.pd_name, 
+  c.pd_cost, 
+  pi.pd_id
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id
+    		AND b.big_name = 'man'
+    	    order by pi.pd_date desc
+	</select>
+
+
+	<select id="selectwoman" resultType="home_product">
+	select b.big_name, br.br_name, pi.pd_img1, pi.pd_name, c.pd_cost, pi.pd_id
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id
+    		AND b.big_name = 'woman'
+    		    		order by pi.pd_date desc
+	
+	</select>
+	
+	<select id="selectunisex" resultType="home_product">
+		select b.big_name, br.br_name, pi.pd_img1, pi.pd_name, c.pd_cost, pi.pd_id
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id
+    		AND b.big_name = 'unisex'
+    		    		order by pi.pd_date desc
+	</select>
+
+	
+	<!--여태 해본것 포이치 지워보기 where 지워보기-->
+	
+	<select id="search" parameterType="map" resultType="home_product">
+    		select b.big_name, br.br_name, pi.pd_img1, pi.pd_name, c.pd_cost , pi.pd_id
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, PO_PRODUCT_SERVICE pps
+    where 1 = 1
+    		and
+    		pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and
+    		pi.pd_id = pps.pd_id
+    		
+			<if test="searchText != null">
+			and
+				pi.pd_name like '%' ||#{searchText}|| '%'
+			</if>
+		
+			<if test="season != null and season.length != 0">
+			and
+				<foreach collection="season" item="item" open="(" close=")" separator="or"> 
+				pps.season = #{item}
+				</foreach>
+			</if>
+			
+			
+			<if test="weather != null and weather.length != 0">
+				and
+				<foreach collection="weather" item="item" open="(" close=")" separator="or"> 
+				pps.weather = #{item}
+				</foreach>
+			</if>
+			
+			<if test="age_birth != null and age_birth.length != 0">
+				and
+				<foreach collection="age_birth" item="item" open="(" close=")" separator="or"> 
+				pps.age_birth = #{item}
+				</foreach>
+			</if>
+			
+			<if test="Scent != null and Scent.length != 0">
+				and
+				<foreach collection="Scent" item="item" open="(" close=")" separator="or"> 
+				pps.Scent = #{item}
+				</foreach>
+			</if>
+			
+			<if test="pd_image != null and pd_image.length != 0">
+				and
+				<foreach collection="pd_image" item="item" open="(" close=")" separator="or"> 
+				pps.pd_image = #{item}
+				</foreach>
+			</if>
+			
+			<if test="sunmoon != null and sunmoon.length != 0">
+				and
+				<foreach collection="sunmoon" item="item" open="(" close=")" separator="or"> 
+				pps.sunmoon = #{item}
+				</foreach>
+			</if>
+			
+			<if test="gender != null and gender.length != 0">
+				and
+				<foreach collection="gender" item="item" open="(" close=")" separator="or"> 
+				pps.gender = #{item}
+				</foreach>
+			</if>
+
+		</select>
+
+
+	<select id="search2" parameterType="map" resultType="home_product">
+		select * from
+		PO_PRODUCT_SERVICE pps
+		<where>
+			<if test="season != null and season.length != 0">
+				<foreach collection="season" item="item" open="(" close=")" separator="or"> 
+					pps.season = #{item}
+				</foreach>
+			</if>
+			
+     	</where>
+	</select>
+
+
+<select id="best_order" resultType="home_product">
+select poc.pd_id,
+  poc.best_order,
+  b.big_name,
+  br.br_name, 
+  pi.pd_img1, 
+  pi.pd_name, 
+  c.pd_cost 
+  from (select pd_id,count(pd_id) as best_order from po_order_comple group by pd_id) poc ,po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+where 
+pi.br_id = br.br_id and
+br.big_id = b.big_id and
+pi.big_id = b.big_id and
+m.pd_id = pi.pd_id and
+c.pd_id = m.pd_id and
+pi.pd_id = poc.pd_id
+order by poc.best_order desc
+</select>
+
+
+
+<select id="weather_list_select" parameterType="String" resultType="home_product">
+		select b.big_name, br.br_name, pi.pd_img1, pi.pd_name, c.pd_cost , pi.pd_id
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, PO_PRODUCT_SERVICE pps
+    where 1 = 1
+    		and
+    		pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and
+    		pi.pd_id = pps.pd_id
+    		
+    		
+    		<if test='_parameter == "Clear"'>
+			and
+				pps.weather = 'sunny'
+				
+			</if>
+			
+			<if test='_parameter == "Thunderstorm"'>
+			and
+				pps.weather = 'rainy'
+				
+			</if>
+			
+			<if test='_parameter == "Drizzle"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Mist"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Smoke"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Haze"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Dust"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Mist"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Fog"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Sand"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Dust"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Ash"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Squall"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Tornado"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Clouds"'>
+			and
+				pps.weather = 'cloudy'
+			</if>
+			
+			<if test='_parameter == "Rain"'>
+			and
+				pps.weather = 'rainy'
+			</if>
+			
+			<if test='_parameter == "Snow"'>
+			and
+				pps.weather = 'snowiy'
+			</if>
+			and rownum <![CDATA[<]]> 5
+</select>
+
+	
+</mapper>

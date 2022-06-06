@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판 처리 SQL -->
+<mapper namespace="global.sesoc.Project_3jo.dao.FaqMapper">
+
+<!-- 게시글 읽기 -->
+<select id="getFaq" parameterType="int" resultType="FaqVO">
+	select 
+		faq_num
+		, faq_title
+		, faq_content
+		, list_cg
+		, faq_hits
+	from 
+		board_faq
+	where 
+		faq_num = #{faq_num}
+</select>
+
+<!-- 조회수 1 증가 -->
+<update id="addHits" parameterType="int">
+	update
+		board_faq
+	set
+		faq_hits = faq_hits + 1
+	where
+		faq_num = #{faq_num}
+</update>
+
+<!-- 전체 글 개수 (검색 필터링 후) -->
+<select id="getTotal" parameterType="SearchVO" resultType="int">
+	select 
+		count(*)
+	from 
+		board_faq
+	<if test="_parameter != null">
+	<where>
+		<if test='type == "1"'>
+			faq_title like '%' || #{searchText} || '%' OR faq_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			list_cg like '%' || '주문/결제' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			list_cg like '%' || '배송' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "4"'>
+			list_cg like '%' || '취소/환불/교환' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "5"'>
+			list_cg like '%' || '기타' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+	</where>
+	</if>
+</select>
+
+<!-- 현재 페이지 전체 목록 (검색 필터링 후) -->
+<select id="listFaq" parameterType="SearchVO" resultType="FaqVO">
+	select 
+		faq_num
+		, faq_title
+		, faq_content
+		, list_cg
+		, faq_hits
+	from 
+		board_faq 
+	<!-- <if test="_parameter != null"> -->
+	<where>
+		<if test='type == "1"'>
+			faq_title like '%' || #{searchText} || '%' OR faq_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			list_cg like '%' || '주문/결제' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			list_cg like '%' || '배송' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "4"'>
+			list_cg like '%' || '취소/환불/교환' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "5"'>
+			list_cg like '%' || '기타' || '%' AND
+			(faq_title like '%' || #{searchText} || '%' OR
+			 faq_content like '%' || #{searchText} || '%')
+		</if>
+	</where>
+	<!-- </if> -->
+	order by faq_num desc
+</select>
+
+</mapper>

@@ -1,0 +1,12 @@
+원가 : 190,000원
+판매가 : 168,000원
+적립금 : 840원 0.005%
+용량
+50 - 원가
+
+
+.serv_list .container .item_list{
+    display: flex;
+    flex-wrap : wrap; /* 상위 요소의 너비보다 하위 요소의 너비가 더 클 경우 줄바꿈 */
+    justify-content: space-between;
+}

@@ -1,0 +1,298 @@
+@charset "UTF-8";
+
+
+.img1-1 {
+   margin-top: 120px;
+   margin-left: 30%;
+}
+
+.img1-2 {
+   height: 300px;
+   width: 300px;
+}
+
+.line2 {
+   border-bottom: 4px black solid;
+   border-top: 2px black solid;
+   height: 80px;
+}
+
+.img1 {
+   margin-top: -93.5px;
+   margin-left: 1px;
+   height: 150px;
+   width: 400px;
+}
+body {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    background-color: white;
+    height: 2000px;
+}
+
+.marking {
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    background-color: white;
+}
+.product_box {
+   overflow-y: scroll;
+    height: 700px;
+}
+
+.product_box::-webkit-scrollbar {
+    width: 10px;
+}
+.product_box::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.product_box::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.mark {
+	background-color: white;
+}
+
+.mypage_info {
+	display: flex;
+	flex-direction: column;
+	margin-left: 50px;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.mypage_name {
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.mypage_heart {
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.mypage_title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.mypage_content {
+	font-size: 15px;
+	color: gray;	
+}
+
+.mypage_go_inquiry{
+	border: 1px #bbbbbb solid;
+	width: 130px;
+	height: 40px;
+	font-size: 13px;
+	background-color: white;
+	text-align: left;
+	margin-bottom: 350px;
+}
+
+.main {
+	position: absolute;
+	top: 280px;
+	margin-left: 350px;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.my_info {
+	width: 1000px;
+	height: 150px;
+	border: 1px #303033 solid;
+	background-color: #303033;
+	color: white;
+}
+
+.recommend {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 600px;
+	color: gray;
+}
+
+.recommendation_perfume {
+	margin-top: 50px;	
+}
+
+#recommendation_perfume1 {
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+}
+
+.recommendation_perfume2 {
+	border: 1px white solid;
+	border-radius : 25px;
+	width: 220px;
+	text-align: center;
+	margin-left: 350px;
+	margin-top: -37px;
+}
+
+#recommendation_perfume2 {
+	font-size: 20px;
+	text-align: center;
+	color: white;
+}
+
+.my_mileage {
+	margin-left: 650px;
+	margin-top: -110px;
+	color: gray; 
+}
+
+.my_mileage2 {
+	margin-top: 44.5px;
+}
+
+#my_mileage1 {
+	font-size: 30px;
+	font-weight: bold;
+	color: white;	
+}
+
+.info_modify {
+	margin-top: 70px;
+	margin-bottom: 40px;
+	width: 1000px;
+}
+
+#info_modify {
+	font-size: 22px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.line {
+	border-top: 4px black solid;
+}
+
+.order_info {
+	font-size: 19px;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.order_info1 {
+	border-top: 2px black solid;
+}
+
+.order_info_detail {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#order_info_detail {
+	font-size: 16px;
+}
+
+#order_info_detail1 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#order_info_detail2 {
+	font-size: 16px;
+}
+
+#order_info_detail3 {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.order_info_detail_line {
+	border-top: 1px #bbbbbb solid;
+}
+
+.order_product_info {
+	display: flex;
+	border-bottom: 2px black solid;
+}
+
+.product_img {
+	margin-left: 10px;
+	width: 150px;
+    height: 150px;
+}
+
+.product_detail {
+	margin-left: 120px;
+	width: 600px;
+}
+
+.brand_name {
+	font-size: 18px;
+    text-decoration: underline;
+    font-weight: bold;
+	margin-top: 15px;
+}
+
+.product_name {
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.product_option {
+	margin-top: 10px;
+}
+
+.product_price_amount {
+	margin-top: 8px;
+	margin-bottom: 20px;
+}
+
+/* .product_detail2 {
+	width: 25px;
+} */
+
+.product_detail2 input[type="button"] {
+	width: 80px;
+	height: 33px;
+	font-size: 13px;
+}
+
+.button_review1 {
+	margin-top: 50px;
+	border: 1px #303033 solid;
+	background-color: #303033;
+	color: white; 
+}
+
+.button_request {
+	margin-top: 5px;
+	border: 1px #bbbbbb solid;
+	background-color: white;
+	color: black;
+}
+
+.button_request1 {
+	margin-top: 5px;
+	border: 1px #bbbbbb solid;
+	background-color: white;
+	color: black;
+}
+
+.mypage_go_inquiry{
+	border: 1px #bbbbbb solid;
+	width: 130px;
+	height: 40px;
+	font-size: 13px;
+	background-color: white;
+	text-align: left;
+	margin-bottom: 350px;
+}

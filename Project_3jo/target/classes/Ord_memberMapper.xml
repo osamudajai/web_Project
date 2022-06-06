@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="global.sesoc.Project_3jo.dao.Ord_MemberMapper">
+	
+	
+	<select id="select_cart" parameterType="list" resultType="base">
+		select
+ 		c.cart_id AS cart_id,
+ 		c.po_id AS po_id,
+ 		p.pd_id AS pd_id,
+ 		p.pd_name AS pd_name,
+ 		c.amount,
+ 		b.big_id,
+ 		b.big_name,
+ 		br.br_name,
+ 		br.br_id,
+ 		(c.money * (1 - pd_dc/1)) as money,
+ 		((c.money * (1 - pd_dc/1)) * amount ) totalmoney,
+ 		pc.pd_save,
+        (pc.pd_save * (c.money * amount)) savapoint,
+ 		p.pd_img1
+ 		from
+ 		po_member_info m , po_product_info p, po_cart c , po_product_cost pc , po_product_brand br, po_product_big b
+ 		where m.po_id = c.po_id
+ 		AND p.pd_id = c.pd_id
+ 		AND p.pd_id = pc.pd_id
+ 		AND c.pd_id = pc.pd_id
+ 		AND br.big_id = b.big_id
+ 		AND b.big_id = p.big_id
+ 		AND	 c.cart_id in
+ 		<foreach collection="list" item="item" open="(" close=")" separator=","> 
+			 #{item}
+		</foreach>
+		
+	</select>
+	 	
+	<select id="nextVal" resultType="int">
+		select po_recipient_seq.nextval from dual
+	</select>
+	
+	<insert id="insertMember" parameterType="member">
+	insert into po_recipient_info(
+			r_boardnum
+			,r_name
+			,r_zip
+			,r_add1
+			,r_add2
+			,r_phone1
+			,r_phone2
+			,r_msg
+			,po_id
+			,totalprice
+		)
+		values (
+			#{r_boardnum}
+			, #{r_name}
+			, #{r_zip}
+			, #{r_add1}
+			, #{r_add2}
+			, #{r_phone1}
+			, #{r_phone2}
+			, #{r_msg}
+			, #{po_id}
+			, #{totalprice}
+		)
+	</insert> 
+	
+	<insert id="insertpd" parameterType="comple">
+	insert into po_order_comple (
+		r_boardnum
+		,po_id
+		,pd_id
+		,order_id
+		,amount
+		,money
+		)
+		values
+		(
+		#{r_boardnum}
+		, #{po_id}
+		, #{pd_id}
+		, sysdate
+		, #{amount}
+		, #{money}
+		)
+	</insert>
+	
+	<select id="select_point" parameterType="String" resultType="pointVO" >
+	select rmpoint from 
+    (select rmpoint from po_member_point
+	where po_id = #{po_id} order by idx desc)
+    where
+    rownum = 1
+	</select>
+	
+	
+	<insert id="insert_point" parameterType="pointVO">
+	insert into po_member_point(
+	idx
+	,po_id
+	,usedate
+	,rmdate
+	,usepoint
+	,rmpoint
+	)
+	values
+	(
+	po_member_point_seq.nextval
+	,#{po_id}
+	,sysdate
+	,sysdate
+	,#{po_use}
+	,((select rmpoint from 
+    (select rmpoint from po_member_point
+	where po_id = #{po_id} order by usedate desc)
+    where
+    rownum = 1)-#{po_use})+#{savapoint}
+	)
+	</insert>
+
+</mapper>

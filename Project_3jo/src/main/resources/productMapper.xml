@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="global.sesoc.Project_3jo.dao.ProductMapper">
+ 
+ <insert id="insertBi" parameterType="ProductBig">
+ insert into po_product_big values (#{big_id}, #{big_name}, #{big_img}, #{big_desc})
+ </insert>
+ <insert id="insertBr" parameterType="ProductBrand">
+ insert into po_product_brand values (#{br_id}, #{big_id}, #{br_name}, #{br_img}, #{br_desc})
+ </insert>
+ <insert id="insert" parameterType="ProductInfo">
+	 insert into po_product_info 
+	 	values (#{pd_id},
+	 			#{big_id},
+	 			#{br_id},
+	 			#{pd_name},
+	 			#{pd_img1},
+	 			#{pd_img2},
+	 			#{desc_img},
+	 			#{pd_stock},
+	 			#{pd_isview},
+	 			sysdate)			
+ </insert>
+ <insert id="insertMl" parameterType="ProductMl">
+ insert into po_product_ml values 
+ 	(#{ml_id1},#{ml_id2},#{ml_id3},#{ml_price1},#{ml_price2},#{ml_price3},#{pd_id})
+ </insert>
+ <insert id="insertCt" parameterType="ProductCt">
+ insert into po_product_cost values (#{pd_cost},#{pd_dc},#{pd_save},#{pd_id})
+ </insert>
+ <!-- 상품목록페이지 출력, 정렬 -->
+ <select id="list" parameterType="String" resultType="global.sesoc.Project_3jo.vo.ProductList">
+ select b.big_name, b.big_desc, br.br_name, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost, ps.*
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, po_product_service ps
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and
+    		pi.pd_id = ps.pd_id
+    	 	<if test='_parameter == "a"'>
+    			order by c.pd_cost desc
+    		</if>
+    		<if test='_parameter == "b"'>
+    			order by c.pd_cost asc
+    		</if>
+    		<if test='_parameter == "c"'>
+    			order by pi.pd_name asc
+    		</if> 
+ </select>
+ <!-- 대분류 클릭했을 때 상품목록페이지 출력, 정렬 -->
+ <select id="listCatab" parameterType="map" resultType="global.sesoc.Project_3jo.vo.ProductList">
+ select b.big_name, b.big_desc, b.big_img, br.br_name, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost, ps.*
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, po_product_service ps
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		pi.pd_id = ps.pd_id and
+    		c.pd_id = m.pd_id and 
+    		b.big_name = #{cata} 
+    		<if test='cate == "a"'>
+    			order by c.pd_cost desc
+    		</if>
+    		<if test='cate == "b"'>
+    			order by c.pd_cost asc
+    		</if>
+    		<if test='cate == "c"'>
+    			order by pi.pd_name asc
+    		</if> 
+ </select>
+ <!-- 대분류타고 소분류를 클릭했을 때 상품목록페이지 출력, 정렬 -->
+ <select id="listCata" parameterType="map" resultType="global.sesoc.Project_3jo.vo.ProductList">
+  select b.big_name,b.big_img, b.big_desc, br.br_name, br.br_img, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost, ps.*
+  from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, po_product_service ps
+  where pi.br_id = br.br_id and
+    	br.big_id = b.big_id and
+    	m.pd_id = pi.pd_id and
+    	c.pd_id = m.pd_id and
+    	pi.pd_id = ps.pd_id and  
+    	b.big_name = #{cata} and
+    	br.br_name = #{cataSmall}
+    		<if test='cate == "a"'>
+    			order by c.pd_cost desc
+    		</if>
+    		<if test='cate == "b"'>
+    			order by c.pd_cost asc
+    		</if>
+    		<if test='cate == "c"'>
+    			order by pi.pd_name asc
+    		</if> 
+ </select>	
+ <!-- 전체목록페이지 출력 시 쿼리   -->
+ <select id="bList" resultType="global.sesoc.Project_3jo.vo.ProductList">
+ 	select distinct b.big_name, br.br_name from po_product_brand br, po_product_big b
+    where b.big_id = br.big_id
+ </select>
+  <!-- 대분류페이지 출력 시 쿼리 --> 
+ <select id="selectBig" parameterType="String" resultType="global.sesoc.Project_3jo.vo.ProductList">
+ 	select distinct b.big_name, br.br_name from po_product_brand br, po_product_big b
+    where b.big_id = br.big_id and big_name = #{cata}
+ </select>
+  <!-- 브랜드페이지 출력 시 쿼리   -->
+ <select id="selectBb" parameterType="map" resultType="global.sesoc.Project_3jo.vo.ProductList">
+    select distinct b.big_name, br.br_name from po_product_brand br, po_product_big b
+    where b.big_id = br.big_id and big_name = #{cata}
+ </select>
+ <!-- 상세페이지 XML -->
+ <select id="listView" resultType="global.sesoc.Project_3jo.vo.ProductDetail">
+ select b.big_id, b.big_name, br.br_id, br.br_name, pi.pd_id, pi.pd_name, pi.pd_img1,pi.desc_img, c.pd_cost, 
+ 		pi.pdCnt, pi.pd_stock, c.pd_dc, c.pd_save
+        ,m.ml_id1, m.ml_id2, m.ml_id3, m.ml_price1, m.ml_price2, m.ml_price3
+    from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id
+   		
+ </select>
+ <select id="listDetail" parameterType="String" resultType="global.sesoc.Project_3jo.vo.ProductDetail">
+ select b.big_name, b.big_desc, b.big_img, br.br_name, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost,
+ 		pi.pdCnt, pi.pd_stock 
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and b.big_name = #{cata}
+ </select>
+  <select id="pdView"  parameterType="map" resultType="global.sesoc.Project_3jo.vo.ProductDetail">
+ select b.big_id, b.big_name, br.br_id, br.br_name, pi.pd_id, pi.pd_name, pi.pd_img1,pi.desc_img, (c.pd_cost * 1) as origin_cost, 
+         (c.pd_cost * (1 - pd_dc/1)) as pd_cost, c.pd_dc, c.pd_save,
+        pi.pdCnt, pi.pd_stock, m.ml_id1, m.ml_id2, m.ml_id3, m.ml_price1, m.ml_price2, m.ml_price3
+    from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    where pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and b.big_name = #{cata} and br.br_name=#{cataSmall} and pi.pd_name = #{pdID}
+ </select>
+ <!-- 전체 글 개수 (검색 필터링 후) -->
+<select id="getTotal" parameterType="map" resultType="int">
+	select 
+		count(*)
+	from 
+		(select b.big_name, b.big_desc, b.big_img, br.br_name, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost 
+ 			from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+    		where pi.br_id = br.br_id and
+   		 		br.big_id = b.big_id and
+    			m.pd_id = pi.pd_id and
+    			c.pd_id = m.pd_id
+    	) 
+   	where 
+   		1=1
+   		<if test="cata != null">
+   		and big_name = #{cata}
+   		</if>
+   		<if test="cata != null and cataSmall != null">
+   		and big_name = #{cata} and br_name = #{cataSmall}
+   		</if>
+</select>
+
+<!-- 구매후기 게시판 가져오기  -->
+<select id="listReview" parameterType="SearchVO" resultType="ReviewVO">
+ 	select
+		rv_num
+		, pd_id			
+		<!-- , po_id -->
+		, (SUBSTR(po_id, 1, 3) || '***') po_id
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from
+		board_review
+	where
+		pd_id = #{pd_id}
+		<if test='type == "1"'>
+			and (rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "2"'>
+			and rv_originalfile is not null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			and rv_originalfile is null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			rv_content like '%' || #{searchText} || '%')
+		</if>
+	order by rv_num desc
+</select>
+<!-- 전체 구매 후기글 개수 (검색 필터링 후) -->
+<select id="getTotalRv" parameterType="SearchVO" resultType="int">
+	select 
+		count(*)
+	from 
+		board_review
+	<if test="type != null">
+	where
+		pd_id = #{pd_id}
+		<if test='type == "1"'>
+			and (rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "2"'>
+			and rv_originalfile is not null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			and rv_originalfile is null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			rv_content like '%' || #{searchText} || '%')
+		</if>
+	</if>
+</select>
+<!-- 구매 후기 글 읽기 -->
+<select id="getReview" parameterType="int" resultType="ReviewVO">
+	select 
+		rv_num
+		, pd_id			
+		, po_id
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from 
+		board_review
+	where 
+		rv_num = #{rv_num}
+</select>
+<!-- 구매후기글 저장 -->
+<insert id="insertReview" parameterType="ReviewVO">
+	insert 
+	into 
+		board_review 
+		(
+			rv_num
+			, po_id
+			, pd_id				
+			, rv_title	
+			, rv_content
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, rv_originalfile
+			, rv_savedfile
+			</if>
+		)
+	values 
+		(
+			board_review_seq.nextval
+			, #{po_id}
+			, #{pd_id}
+			, #{rv_title}
+			, #{rv_content}
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, #{rv_originalfile}
+			, #{rv_savedfile}
+			</if>
+		)
+</insert>
+
+<select id ="relatedAll" parameterType ="map" resultType="global.sesoc.Project_3jo.vo.ProductDetail">   
+   select * from (select * from 
+        (select b.big_name, b.big_desc, b.big_img, br.br_name, br.br_desc, pi.pd_img1, pi.pd_name, c.pd_cost, ps.* 
+      from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, po_product_service ps
+       where  
+          pi.br_id = br.br_id and
+          br.big_id = b.big_id and
+          m.pd_id = pi.pd_id and
+          c.pd_id = m.pd_id and
+          pi.pd_id = ps.pd_id) where 1=1
+          <if test="season != null and weather != null and sunmoon != null">            
+            and season = #{season} 
+            and weather = #{weather} 
+            and sunmoon = #{sunmoon} 
+              order by DBMS_RANDOM.RANDOM
+            </if>                 
+            ) where rownum <![CDATA[<]]> 4  
+ </select>
+ 
+ <!-- 상품조회 -->
+ <select id="adminList" resultType="global.sesoc.Project_3jo.vo.ProductList">
+      select pi.pd_id, b.big_name, br.br_name, pi.pd_name, c.pd_cost, to_char(pi.pd_date, 'yyyy/mm/dd') as pd_date
+       from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+       where pi.br_id = br.br_id and
+             br.big_id = b.big_id and
+             m.pd_id = pi.pd_id and
+             c.pd_id = m.pd_id order by pi.pd_date asc
+</select>
+<!-- 상품조회개수 -->
+ <select id="getAdminTotal" parameterType="global.sesoc.Project_3jo.vo.ProductList" resultType="int">
+   select 
+      count(*)
+   from 
+      (select pi.pd_id, b.big_name, br.br_name, pi.pd_name, c.pd_cost, to_char(pi.pd_date, 'yyyy/mm/dd') as pd_date
+       from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c
+       where pi.br_id = br.br_id and
+             br.big_id = b.big_id and
+             m.pd_id = pi.pd_id and
+             c.pd_id = m.pd_id
+       )
+</select>
+ 
+ 
+ </mapper>

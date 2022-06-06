@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="global.sesoc.Project_3jo.dao.CartMapper">
+  	
+  	<select id="ba_select">
+  	select * from po_cart
+  	</select>
+  	
+  	
+  	
+  	<insert id="ba_insert">
+		insert into po_cart(cart_id, po_id, pd_id, amount, money)
+		values(po_cart_seq.nextval, #{po_id}, #{pd_id}, #{amount}, #{mlmoney}) 
+  	</insert>
+  	
+  	
+  	<update id="modifyCart" parameterType="CartVO">
+		update po_cart 
+		set amount = #{amount} 
+		where cart_id = #{cart_id}
+		AND pd_id = #{pd_id}
+	</update>
+	
+  	
+  	<delete id="ba_delete">
+	
+		delete from po_cart 
+		where cart_id = #{cart_id}
+	
+	</delete>
+	
+	<delete id="delete_all">
+	
+		delete from po_cart where po_id = #{po_id}
+	
+	</delete>
+	
+  
+  <select id="ba_list" resultType="global.sesoc.Project_3jo.vo.CartVO">
+ 	select
+ 		c.cart_id AS cart_id,
+ 		c.po_id AS po_id,
+ 		p.pd_id AS pd_id,
+ 		m.po_id AS po_id,
+ 		p.pd_name AS pd_name,
+ 		c.amount,
+ 		b.big_id,
+ 		br.br_id,
+        (c.money * (1 - pd_dc/1)) as money,
+ 		((c.money * (1 - pd_dc/1)) * amount ) totalmoney
+ 		from
+ 		po_member_info m , po_product_info p, po_cart c , po_product_cost pc , po_product_brand br, po_product_big b
+ 		where m.po_id = c.po_id
+ 		AND p.pd_id = c.pd_id
+ 		AND p.pd_id = pc.pd_id
+ 		AND c.pd_id = pc.pd_id
+ 		AND br.big_id = b.big_id
+ 		AND b.big_id = p.big_id
+ 		AND c.po_id = #{po_id}
+ 		order by
+ 		c.cart_id
+  
+  </select>
+  
+  <select id="amount" resultType="int">
+	
+		select count(*) 
+		from po_cart 
+		where po_id = #{po_id} 
+		and pd_id = #{pd_id}
+	
+	</select>
+	
+<select id="totalPrice" resultType="int">
+select NVL(sum((c.money * (1 - pd_dc/1)) * amount ), 0) money
+from po_cart c , po_product_info p , po_product_cost pc
+where
+c.pd_id = p.pd_id 
+AND pc.pd_id = p.pd_id
+AND c.pd_id = pc.pd_id
+AND c.po_id = #{po_id}
+</select>
+
+<update id="ba_update">
+	update po_cart
+	set
+	amount = amount + #{amount}
+	where po_id = #{po_id}
+	AND pd_id = #{pd_id}
+</update>
+  
+</mapper>

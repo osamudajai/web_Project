@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <mapper namespace="global.sesoc.Project_3jo.dao.adminMapper">
+   
+   <select id="selectorder" resultType="base">
+   select 
+	pr.r_boardnum,
+	pr.po_id,
+	poc.r_boardnum,
+	poc.order_id,
+	poc.pd_id,
+	poc.amount,
+	poc.money,
+	pp.pd_name,
+	pp.pd_id,
+	pp.pd_img1,
+	pp.big_id,
+	ppb.big_name,
+	pp.br_id,
+	ppr.br_name
+	from po_recipient_info pr , po_order_comple poc , po_product_info pp, po_product_big ppb, po_product_brand ppr
+	where
+	pr.r_boardnum = poc.r_boardnum 
+	and pr.po_id = poc.po_id
+    and poc.pd_id = pp.pd_id
+    and pp.br_id = ppr.br_id
+    and pp.big_id = ppb.big_id
+    </select>
+    
+    
+    <select id="getadmin" parameterType="string" resultType="adminVO">
+		select * from po_admin where admin_id = #{admin_id}
+	</select>
+	
+	<select id="getNotice" parameterType="int" resultType="NoticeVO">
+	select 
+		nt_num
+		, nt_title
+		, nt_content
+		, nt_hits
+		<!-- , nt_date -->
+		, to_char(nt_date, 'YYYY-MM-DD') nt_date
+	from 
+		board_notice
+	where 
+		nt_num = #{nt_num}
+</select>
+
+<!-- 조회수 1 증가 -->
+<update id="addHits" parameterType="int">
+	update
+		board_notice
+	set
+		nt_hits = nt_hits + 1
+	where
+		nt_num = #{nt_num}
+</update>
+
+<!-- 전체 글 개수 (검색 필터링 후) -->
+<select id="getTotal" parameterType="SearchVO" resultType="int">
+	select 
+		count(*)
+	from 
+		board_notice 
+	<!-- <if test="searchText != null"> -->
+	<where>
+		<if test='type == "1"'>
+			nt_title like '%' || #{searchText} || '%' OR nt_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			nt_title like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "3"'>
+			nt_content like '%' || #{searchText} || '%'
+		</if>
+	</where>
+	<!-- </if> -->
+</select>
+
+<!-- 현재 페이지 목록 (검색 필터링 후) -->
+<select id="listNotice" parameterType="SearchVO" resultType="NoticeVO">
+	select 
+		nt_num
+		, nt_title
+		, nt_content
+		, nt_hits
+		<!-- , nt_date -->
+		, to_char(nt_date, 'YYYY-MM-DD') nt_date
+	from 
+		board_notice 
+	<where>
+		<if test='type == "1"'>
+			nt_title like '%' || #{searchText} || '%' OR nt_content like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "2"'>
+			nt_title like '%' || #{searchText} || '%'
+		</if>
+		<if test='type == "3"'>
+			nt_content like '%' || #{searchText} || '%'
+		</if>
+	</where>
+	order by nt_num desc
+</select>
+
+<insert id="insert" parameterType="NoticeVO">
+		insert into board_notice (nt_num, nt_title, nt_content)
+		values (board_notice_seq.nextval, #{nt_title}, #{nt_content})
+	</insert>
+	
+	
+	
+	<delete id="noticedelete">
+	
+		delete from board_notice 
+		where nt_num = #{nt_num}
+	
+	</delete>
+	
+	<select id="order_total" parameterType="base" resultType="int">
+	select
+	count(*)
+	from(select 
+	pr.r_boardnum,
+	pr.po_id,
+	poc.r_boardnum,
+	poc.order_id,
+	poc.pd_id,
+	poc.amount,
+	poc.money,
+	pp.pd_name,
+	pp.pd_id,
+	pp.pd_img1,
+	pp.big_id,
+	ppb.big_name,
+	pp.br_id,
+	ppr.br_name
+	from po_recipient_info pr , po_order_comple poc , po_product_info pp, po_product_big ppb, po_product_brand ppr
+	where
+	pr.r_boardnum = poc.r_boardnum 
+	and pr.po_id = poc.po_id
+    and poc.pd_id = pp.pd_id
+    and pp.br_id = ppr.br_id
+    and pp.big_id = ppb.big_id
+	)
+	</select>
+	
+	
+   </mapper>

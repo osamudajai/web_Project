@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="global.sesoc.Project_3jo.dao.PerfumeTellerMapper">
+
+
+<select id="paffem_search" parameterType="map" resultType="paffemVO">
+    		select 
+    		b.big_name,
+    		br.br_name, 
+    		pi.pd_img1, 
+    		pi.pd_name, 
+    		c.pd_cost , 
+    		pi.pd_id,
+    		pps.season,
+    		pps.weather,
+    		pps.age_birth,
+    		pps.scent,
+    		pps.pd_image,
+    		pps.sunmoon,
+    		pps.gender,
+    		pps.sunmoon2
+    		
+ 	from po_product_info pi, po_product_brand br, po_product_big b, po_product_ml m, po_product_cost c, PO_PRODUCT_SERVICE pps
+    where 1 = 1
+    		and
+    		pi.br_id = br.br_id and
+    		br.big_id = b.big_id and
+    		pi.big_id = b.big_id and
+    		m.pd_id = pi.pd_id and
+    		c.pd_id = m.pd_id and
+    		pi.pd_id = pps.pd_id
+		
+			<if test="season != null">
+				and
+				pps.season = #{season}
+			</if>
+			<if test="weather != null">
+				and
+				pps.weather = #{weather}
+			
+			</if>
+			<if test="age_birth != null">
+				and
+				pps.age_birth = #{age_birth}
+				
+			</if>
+			<if test="Scent != null">
+				and
+				pps.Scent = #{Scent}
+			</if>
+			<if test="pd_image != null">
+				and
+				pps.pd_image = #{pd_image}
+				
+			</if>
+			<if test="sunmoon != null">
+				and
+				pps.sunmoon = #{sunmoon}
+				
+			</if>
+			
+			<if test="gender != null">
+				and
+				pps.gender = #{gender}
+				
+			</if>
+			
+			<if test="sunmoon2 != null">
+				and
+				pps.sunmoon2 = #{sunmoon2}
+			</if>
+			
+			
+
+		</select>
+		
+		
+<select id="countvalue" resultType="paffemVO">
+select season,count(season)
+from po_product_service
+group by season
+union all
+select weather,count(weather)
+from po_product_service
+group by weather
+union all
+select age_birth,count(age_birth)
+from po_product_service
+group by age_birth
+union all
+select scent,count(scent)
+from po_product_service
+group by scent
+union all
+select pd_image,count(pd_image)
+from po_product_service
+group by pd_image
+union all
+select sunmoon,count(sunmoon)
+from po_product_service
+group by sunmoon
+union all
+select gender,count(gender)
+from po_product_service
+group by gender
+union all
+select sunmoon2,count(sunmoon2)
+from po_product_service
+group by sunmoon2
+</select>
+		
+</mapper>

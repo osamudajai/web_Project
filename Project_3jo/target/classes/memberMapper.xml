@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="global.sesoc.Project_3jo.dao.MemberMapper">
+  
+  <insert id="insertMember" parameterType="MemberVO">
+		insert into po_member_info 
+		values (
+			#{po_id}
+			, #{password}
+			, #{name}
+			, #{birth}
+			, #{phone}
+			, #{email}
+			, #{address}
+			, #{address2}
+			, #{address3}
+			, #{gender}
+		)
+	</insert>
+	
+	<select id="idChk" resultType="int">
+	SELECT COUNT(*) FROM po_member_info
+	WHERE po_id = #{po_id}
+</select>
+
+<select id="emailchk" resultType="int">
+	SELECT COUNT(*) FROM po_member_info
+	WHERE email = #{email}
+</select>
+
+	
+	<insert id="insert_pointMember" parameterType="String">
+		insert into po_member_point(
+		idx
+		,po_id
+		)
+		values (
+			po_member_point_seq.nextval
+			,#{po_id}
+		)
+	</insert>
+  
+  <select id="getMember" parameterType="string" resultType="MemberVO">
+		select * from po_member_info where po_id = #{po_id}
+	</select>
+	
+	<select id="findid" resultType="MemberVO">
+		select * from po_member_info where email = #{email}
+	</select>
+	
+	
+	
+	<select id="findpw" resultType="MemberVO">
+		select * from po_member_info where po_id = #{po_id}
+	</select>  	
+	
+	<select id="select" parameterType="string" resultType="MemberVO">
+      select
+      * from po_member_info where po_id = #{po_id}
+   </select>
+   
+   <update id="update" parameterType="MemberVO">
+      update
+         po_member_info
+      set
+         address = #{address, jdbcType=VARCHAR}
+         , address2 = #{address2, jdbcType=VARCHAR}
+         , address3 = #{address3, jdbcType=VARCHAR}
+         , email = #{email, jdbcType=VARCHAR}
+      where
+         po_id = #{po_id}
+   </update>
+   
+   <select id="select_pw" parameterType="string" resultType="MemberVO">
+      select
+      * from po_member_info where po_id = #{po_id}
+   </select>
+   
+   <update id="update_pw" parameterType="MemberVO">
+      update
+         po_member_info
+      set
+         password = #{password, jdbcType=VARCHAR}
+         , address = #{address, jdbcType=VARCHAR}
+         , address2 = #{address2, jdbcType=VARCHAR}
+         , address3 = #{address3, jdbcType=VARCHAR}
+         , email = #{email, jdbcType=VARCHAR}
+      where
+         po_id = #{po_id, jdbcType=VARCHAR}
+   </update>
+
+	
+	
+	<select id="selectorder" resultType="base">    
+    select * from (
+   select 
+   pr.r_boardnum,
+   pr.po_id,
+   poc.r_boardnum a,
+   to_char(poc.order_id, 'yyyy-mm-dd') as order_id,
+   poc.pd_id,
+   poc.amount,
+   poc.money,
+   pp.pd_name,
+   pp.pd_id b,
+   pp.pd_img1,
+   pp.big_id,
+   ppb.big_name,
+   pp.br_id,
+   ppr.br_name
+   from po_recipient_info pr , po_order_comple poc , po_product_info pp, po_product_big ppb, po_product_brand ppr
+   where
+   pr.r_boardnum = poc.r_boardnum 
+   and pr.po_id = poc.po_id
+    and poc.pd_id = pp.pd_id
+    and pp.br_id = ppr.br_id
+    and pp.big_id = ppb.big_id
+    and pr.po_id = #{po_id}
+    order by poc.order_id desc) 
+    where rownum  <![CDATA[<]]> 4
+   </select>
+	
+	<select id="select_order" resultType="base">
+	select 
+	pr.r_boardnum,
+	pr.po_id,
+	poc.r_boardnum,
+	to_char(poc.order_id, 'yyyy-mm-dd') as order_id,
+	poc.pd_id,
+	poc.amount,
+	poc.money,
+	pp.pd_name,
+	pp.pd_id,
+	pp.pd_img1,
+	pp.big_id,
+	ppb.big_name,
+	pp.br_id,
+	ppr.br_name
+	from po_recipient_info pr , po_order_comple poc , po_product_info pp, po_product_big ppb, po_product_brand ppr
+	where
+	pr.r_boardnum = poc.r_boardnum 
+	and pr.po_id = poc.po_id
+    and poc.pd_id = pp.pd_id
+    and pp.br_id = ppr.br_id
+    and pp.big_id = ppb.big_id
+    and pr.po_id = #{po_id}
+    order by poc.order_id desc
+	</select>
+	
+
+
+	<select id="no_select_point" parameterType="String" resultType="pointVO" >
+	select rmpoint from 
+    (select rmpoint from po_member_point
+	where po_id = #{po_id} order by idx desc)
+    where
+    rownum = 1
+	</select>
+	
+	
+	<select id="use_point_sum" parameterType="String" resultType="pointVO" >
+	select sum(usepoint) as all_use from po_member_point
+	where po_id = #{po_id}
+	</select>
+	
+	<select id="rm_point_sum" parameterType="String" resultType="pointVO" >
+	select sum(rmpoint) as all_rm from po_member_point
+	where po_id = #{po_id}
+	</select>
+	
+
+	<select id="select_point" parameterType="String" resultType="pointVO" >
+	select * from po_member_point
+	where po_id =#{po_id}
+	order by usedate desc
+	</select>
+	
+	<!-- 구매후기글 저장 -->
+<insert id="insertReview" parameterType="ReviewVO">
+	insert 
+	into 
+		board_review 
+		(
+			rv_num
+			, po_id
+			, pd_id
+			, pd_name				
+			, rv_title	
+			, rv_content
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, rv_originalfile
+			, rv_savedfile
+			</if>
+		)
+	values 
+		(
+			board_review_seq.nextval
+			, #{po_id}
+			, #{pd_id}
+			, #{pd_name}
+			, #{rv_title}
+			, #{rv_content}
+			<if test="rv_originalfile != null and rv_savedfile != null">
+			, #{rv_originalfile}
+			, #{rv_savedfile}
+			</if>
+		)
+</insert>
+<!-- 나의 리뷰 목록 -->
+<select id="listReview" parameterType="SearchVO" resultType="ReviewVO">
+	select 
+		rv_num
+		, pd_id
+		<!-- , user_id -->			
+		, (SUBSTR(po_id, 1, 3) || '***') po_id
+		, pd_name
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from 
+		board_review 
+	<!-- <if test="_parameter != null"> -->
+	where
+		po_id = #{po_id}
+		<if test='type == "1"'>
+			and (rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "2"'>
+			and rv_originalfile is not null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			 rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			and rv_originalfile is null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			 rv_content like '%' || #{searchText} || '%')
+		</if>
+	<!-- </if> -->
+	order by rv_num desc
+</select>
+
+
+<select id="getTotal" parameterType="SearchVO" resultType="int">
+	select 
+		count(*)
+	from 
+		board_review
+	<if test="_parameter != null">
+	where
+		po_id = #{po_id}
+		<if test='type == "1"'>
+			and (rv_title like '%' || #{searchText} || '%' OR rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "2"'>
+			and rv_originalfile is not null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			 rv_content like '%' || #{searchText} || '%')
+		</if>
+		<if test='type == "3"'>
+			and rv_originalfile is null AND
+			(rv_title like '%' || #{searchText} || '%' OR
+			 rv_content like '%' || #{searchText} || '%')
+		</if>
+	</if>
+</select>
+<!-- 리뷰 글 읽기 -->
+<select id="getReview" parameterType="int" resultType="ReviewVO">
+	select 
+		rv_num
+		, pd_id			
+		, po_id
+		, pd_name
+		, rv_title	
+		, rv_content
+		, rv_originalfile
+		, rv_savedfile
+		<!-- , rv_date -->
+		, to_char(rv_date, 'YYYY-MM-DD') rv_date
+	from 
+		board_review
+	<if test="_parameter != null">
+	where 
+		rv_num = #{rv_num}
+	</if>
+</select>
+	
+  </mapper>
