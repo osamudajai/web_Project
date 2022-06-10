@@ -42,6 +42,8 @@
   - 1 性別で新商品を見せてくれる機能
   - 2 自社の最高注文数商品
 ![main bame](https://user-images.githubusercontent.com/96292043/172994539-3c89dd20-4953-4121-a52d-75a9c424879a.png)
+
+
 - 会員登録
 ![image](https://user-images.githubusercontent.com/96292043/172995009-db7c79c3-f987-429f-a27e-13d0e841b90b.png)
 ![image](https://user-images.githubusercontent.com/96292043/172995029-233a6404-dda7-428a-8777-3223e85d9f15.png)
