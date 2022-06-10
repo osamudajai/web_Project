@@ -41,7 +41,7 @@
 - メイン場面
   - 1 性別で新商品を見せてくれる機能
   - 2 自社の最高注文数商品
-  - 3 天気APIを利用してリアルタイムで現在の天気に合わせた商品をおすすめ
+  - 3 天気APIを利用してリアルタイム、AJAX通信で現在の天気に合わせた商品をおすすめ
 ![main bame](https://user-images.githubusercontent.com/96292043/172994539-3c89dd20-4953-4121-a52d-75a9c424879a.png)
 ![image](https://user-images.githubusercontent.com/96292043/173009303-5e8fbfbe-2da0-4366-9823-c99663f27bc2.png)
 
