@@ -61,12 +61,9 @@
 
 - MyPage
   - 最近購入した商品3個
-
 ![my1](https://user-images.githubusercontent.com/96292043/173007833-693138b6-8bf4-436e-9fbc-fb252b5dac2b.png)
-
   - すべて見るをクリックすれば購入した商品を全部観覧可能。
 ![mt2](https://user-images.githubusercontent.com/96292043/173007688-79455834-c611-4313-bfa6-8b4d3994d5ba.png)
-
   - MyPageでアカウントアップデート可能。
 ![image](https://user-images.githubusercontent.com/96292043/173008136-c95ce4f0-f274-496f-b87a-c92424193ac8.png)
 
@@ -79,9 +76,7 @@
 - 商品
 
   - １　ブランド別商品
-
   - ２　高い、低い価格順、商品名順
-
   - ３　商品ページング
 
 ![shopping1](https://user-images.githubusercontent.com/96292043/173014184-6896c954-c6eb-462a-9b25-49f96504abef.png)
