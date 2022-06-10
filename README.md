@@ -49,7 +49,11 @@
 ![image](https://user-images.githubusercontent.com/96292043/172995009-db7c79c3-f987-429f-a27e-13d0e841b90b.png)
 ![image](https://user-images.githubusercontent.com/96292043/172995029-233a6404-dda7-428a-8777-3223e85d9f15.png)
 
-  - 会員登録とログインページは同じJSPにあり、簡単に会員登録とログインが可能。
+- 会員登録とログインページは同じJSPにあり、簡単に会員登録とログインが可能。
+  - ![image](https://user-images.githubusercontent.com/96292043/172995453-1eea3099-e436-4505-ab99-f923ce85fdf4.png)
+  - ID重複検査
+  - 住所APIを利用して会員登録中住所登録可能。
+
 
 
 
