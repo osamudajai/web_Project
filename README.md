@@ -39,8 +39,8 @@
   -　lucy-xss-filterを利用したセキュリティfilter 
 # ウェブイメージ
 - メイン場面
-  - 1. 性別で新商品を見せてくれる機能
-  - 2. 自社の最高注文数商品
+  - 1 性別で新商品を見せてくれる機能
+  - 2 自社の最高注文数商品
 ![main bame](https://user-images.githubusercontent.com/96292043/172994539-3c89dd20-4953-4121-a52d-75a9c424879a.png)
 
 
