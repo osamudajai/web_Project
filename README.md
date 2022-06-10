@@ -71,9 +71,7 @@
 ![image](https://user-images.githubusercontent.com/96292043/173008136-c95ce4f0-f274-496f-b87a-c92424193ac8.png)
 
   - 1　現在持っているポイント
-
   - 2　使用累積ポイント
-
   - 3　ポイント使用内訳
 
 ![my3](https://user-images.githubusercontent.com/96292043/173011480-aec98777-e318-4ab1-ba3e-2c943b1ea584.png)
