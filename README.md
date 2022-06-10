@@ -1,7 +1,7 @@
 # web_project
 香水ショッピングモールウェブプロジェクトです。
 
-![image](https://user-images.githubusercontent.com/96292043/172990649-8fe15391-aa55-4bdb-88bc-8a0de7865cfb.png)
+![image](https://user-images.githubusercontent.com/96292043/172994635-51c0f5c7-5943-4aff-9dc0-b2ab055f8ed5.png)
 （メイン場面の一部）
 
 # 配布環境
