@@ -51,6 +51,12 @@
   - ![kaiin2](https://user-images.githubusercontent.com/96292043/172998226-b9cbc1d7-02c8-443d-be5c-d7da9d189e4e.png)
   - 住所APIを利用して会員登録中住所登録可能。
   - ![kaiin3](https://user-images.githubusercontent.com/96292043/172998252-5ba6dd67-9c5b-4fd4-8eaa-43c9cc3f7d53.png)
+- MyPage
+  - 最近購入した商品3個
+  - ![my1](https://user-images.githubusercontent.com/96292043/172998756-fcae2ff5-f64f-41b9-9b51-4b37f76c6863.png)
+  - すべて見るをクリックしたら購入した商品を全部観覧可能。
+  - ![mt2](https://user-images.githubusercontent.com/96292043/173007688-79455834-c611-4313-bfa6-8b4d3994d5ba.png)
+
 
 
 
