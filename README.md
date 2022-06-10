@@ -45,14 +45,13 @@
 
 
 - 会員登録
-
-![image](https://user-images.githubusercontent.com/96292043/172995009-db7c79c3-f987-429f-a27e-13d0e841b90b.png)
-![image](https://user-images.githubusercontent.com/96292043/172995029-233a6404-dda7-428a-8777-3223e85d9f15.png)
-
-- 会員登録とログインページは同じJSPにあり、簡単に会員登録とログインが可能。
-  - ![image](https://user-images.githubusercontent.com/96292043/172995453-1eea3099-e436-4505-ab99-f923ce85fdf4.png)
+  - 会員登録とログインページは同じJSPにあり、簡単に会員登録とログインが可能。
+  - ![kaiin1](https://user-images.githubusercontent.com/96292043/172998212-786b0bd5-d8c2-4ecf-bd3f-773dd1d68532.png)
   - ID重複検査
+  - ![kaiin2](https://user-images.githubusercontent.com/96292043/172998226-b9cbc1d7-02c8-443d-be5c-d7da9d189e4e.png)
   - 住所APIを利用して会員登録中住所登録可能。
+  - ![kaiin3](https://user-images.githubusercontent.com/96292043/172998252-5ba6dd67-9c5b-4fd4-8eaa-43c9cc3f7d53.png)
+
 
 
 
