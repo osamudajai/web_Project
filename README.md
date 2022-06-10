@@ -71,8 +71,9 @@
   - １　ブランド別商品
   - ２　高い、低い価格順、商品名順
   - ３　商品ページング
+
 ![shopping1](https://user-images.githubusercontent.com/96292043/173014184-6896c954-c6eb-462a-9b25-49f96504abef.png)
-  関連商品
+  - 関連商品
 ![shouhin](https://user-images.githubusercontent.com/96292043/173019407-dc53e988-6ce5-4a03-ae9b-f90e14693acc.png)
 
 
