@@ -94,7 +94,11 @@
 
 
 
-
+- 商品おすすめ機能
+  - 全８つのキーワードを選択して顧客に合う商品をおすすめ
+![FireShot Capture 010 - 설문조사 페이지 - localhost](https://user-images.githubusercontent.com/96292043/173278406-15d7f319-6b14-4ef7-84cf-594eeebe2fac.png)
+  - 4つの商品おすすめと顧客が選択したキーワードがワードクラウドで出力
+![FireShot Capture 012 - paffem - localhost](https://user-images.githubusercontent.com/96292043/173279266-ebc6feb8-ea1d-412e-bc95-264f31a54eac.png)
 
 
 
