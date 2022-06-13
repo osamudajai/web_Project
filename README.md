@@ -82,7 +82,9 @@
 ![shouhin](https://user-images.githubusercontent.com/96292043/173019407-dc53e988-6ce5-4a03-ae9b-f90e14693acc.png)
 
 - 買い物かご
-
+  - 1 AJAX通信で数量変更、削除可能
+  - 2 個別、選択注文
+![bako1](https://user-images.githubusercontent.com/96292043/173262905-ea3e2d7e-41fd-4ac2-90b9-77ac0d6d8052.png)
 
 
 
