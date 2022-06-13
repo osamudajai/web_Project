@@ -41,9 +41,11 @@
   - 1 性別で新商品を見せてくれる機能
   - 2 自社の最高注文数商品
   - 3 天気APIを利用してリアルタイム、AJAX通信で現在の天気に合わせた商品をおすすめ
+  - 4 全7個のキーワードを選択して商品詳細検索機能
 
 ![main bame](https://user-images.githubusercontent.com/96292043/172994539-3c89dd20-4953-4121-a52d-75a9c424879a.png)
 ![main3](https://user-images.githubusercontent.com/96292043/173009896-3db1110c-89fb-4e9e-a1e5-e59502bf5963.png)
+![main4](https://user-images.githubusercontent.com/96292043/173261478-ef17b2cb-ed96-4998-9a18-2efdbabfe016.png)
 
 
 - 会員登録
@@ -76,7 +78,7 @@
   - 関連商品
 ![shouhin](https://user-images.githubusercontent.com/96292043/173019407-dc53e988-6ce5-4a03-ae9b-f90e14693acc.png)
 
-
+- 買い物かご
 
 
 
