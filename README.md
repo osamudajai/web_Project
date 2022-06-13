@@ -41,7 +41,7 @@
   - 1 性別で新商品を見せてくれる機能
   - 2 自社の最高注文数商品
   - 3 天気APIを利用してリアルタイム、AJAX通信で現在の天気に合わせた商品をおすすめ
-  - 4 全7個のキーワードを選択して商品詳細検索機能
+  - 4 全7個のキーワードを選択して商品動的詳細検索機能
 
 ![main bame](https://user-images.githubusercontent.com/96292043/172994539-3c89dd20-4953-4121-a52d-75a9c424879a.png)
 ![main3](https://user-images.githubusercontent.com/96292043/173009896-3db1110c-89fb-4e9e-a1e5-e59502bf5963.png)
@@ -85,6 +85,14 @@
   - 1 AJAX通信で数量変更、削除可能
   - 2 個別、選択注文
 ![bako1](https://user-images.githubusercontent.com/96292043/173262905-ea3e2d7e-41fd-4ac2-90b9-77ac0d6d8052.png)
+
+- 商品注文
+  - 購入しようとする商品一覧表示
+  - 1 ご購入の際、ポイントを使用可能
+  - 2 カカオペイ、仮想口座決済可能
+![KESSAI](https://user-images.githubusercontent.com/96292043/173264591-f31bded8-57df-44c1-8a95-a731c755aecf.png)
+
+
 
 
 
