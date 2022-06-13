@@ -58,9 +58,11 @@
 
 
 - MyPage
-  - 最近購入した商品3個  
+  - 最近購入した商品3個
+
 ![my1](https://user-images.githubusercontent.com/96292043/173007833-693138b6-8bf4-436e-9fbc-fb252b5dac2b.png)
-  - すべて見るをクリックすれば購入した商品を全部観覧可能。　　
+  - すべて見るをクリックすれば購入した商品を全部観覧可能。
+
 ![mt2](https://user-images.githubusercontent.com/96292043/173007688-79455834-c611-4313-bfa6-8b4d3994d5ba.png)
   - MyPageでアカウントアップデート可能。
 
